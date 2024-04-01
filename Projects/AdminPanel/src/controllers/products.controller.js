@@ -13,4 +13,13 @@ export class ProductsController {
     // console.log(path.resolve('src', 'views', 'products.html'))
     // res.sendFile(path.join(path.resolve('src', 'views', 'products.html')))
   }
+
+  getAddForm(req, res){
+    return res.render("newProduct")
+  }
+  addNewProduct(req, res){
+    ProductsModel.addNewProductInTheList(req.body)
+    const products = ProductsModel.get()
+    return res.render("products", { products })
+  }
 }

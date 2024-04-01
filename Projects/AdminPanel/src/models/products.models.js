@@ -8,6 +8,12 @@ export default class ProductsModel {
   static get(){
     return products
   }
+  static addNewProductInTheList({ name, desc, price, imageUrl }){
+    const newProductId = products.length + 1
+    const product = new ProductsModel(newProductId, name, desc, price, imageUrl)
+    products.push(product)
+    return products
+  }
 }
 var products = [
   new ProductsModel(
