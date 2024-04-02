@@ -2,6 +2,7 @@ import express from 'express';
 import { ProductsController } from './src/controllers/products.controller.js';
 import path from "path";
 import ejsLayout from "express-ejs-layouts";// this is a middleware
+import addProductValidate from './src/middlewares/addProductValidationMiddleware.js';
 
 const controller = new ProductsController;
 
@@ -19,6 +20,6 @@ server.use(express.static('src/views'));
 server.get('/', controller.getAllProducts);
 server.get('/new', controller.getAddForm);
 
-server.post('/', controller.addNewProduct);
+server.post('/', [addProductValidate, controller.addNewProduct]);
 
 server.listen(3400, ()=> console.log("server has started"));
