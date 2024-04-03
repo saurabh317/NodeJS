@@ -34,12 +34,11 @@ const addProductValidate = async(req, res, next) => {
     body('price').isFloat({gt: 0}).withMessage('enter a valid price'),
     body('imageUrl').isURL().withMessage("enter a valid url")
   ]
-  // step2: execute the rules
+  // step2: execute the rules using run function
   await Promise.all(rules.map((rule) => rule.run(req)))
 
-  // step3: check if there is any error after running the rules
+  // step3: collect result => check if there is any error after running the rules
   let validationErrors = validationResult(req)
-
 
    if (!validationErrors.isEmpty()){
      res.render("newProduct", {

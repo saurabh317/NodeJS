@@ -14,6 +14,20 @@ export default class ProductsModel {
     products.push(product)
     return products
   }
+  static getProductById(id){
+    const index = products.findIndex((product) => product.id === +id)
+    if(index < 0) {
+      return { product: products[index], found: false }
+    } else {
+      return { product: products[index], found: true }
+    }
+  }
+
+  static deleteProduct(id){
+   const newProducts = products.filter((product) => product.id !== +id)
+   products = newProducts
+  //  console.log(newProducts)
+  }
 }
 var products = [
   new ProductsModel(
