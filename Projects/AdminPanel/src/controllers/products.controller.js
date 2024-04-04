@@ -2,7 +2,7 @@ import path from 'path';
 import ProductsModel from '../models/products.models.js';
 
 export class ProductsController {
-  // this will return all the products available
+
   getAllProducts(req, res){
     const products = ProductsModel.get()
     res.render("products", { products: products })
@@ -18,26 +18,37 @@ export class ProductsController {
 
   addNewProduct(req, res){
     ProductsModel.addNewProductInTheList(req.body)
-    const products = ProductsModel.get()
-    return res.render("products", { products })
+    return res.redirect('/')
   }
 
   getUpdateProductView(req, res){
     const { id } = req.params
     const { product, found } = ProductsModel.getProductById(id)
-    console.log(found, product)
+    const params = {
+      id,
+      errorMessage : null,
+      product
+    }
+
     // if product is there show the update product view
     if (found) {
-      res.render("update-product", {errorMessage : null})
-    } else { // else return the error
+      res.render("update-product", params)
+    } else {
       res.status(401).send("product not found")
     }
   }
 
+  updateProductDetails(req, res) {
+    const id = req.body.productId;
+    ProductsModel.updateProduct(id , req.body)
+    return res.redirect('/')
+  }
+
   deleteProductFromList(req, res) {
     const { id } = req.params
+    console.log(id)
     ProductsModel.deleteProduct(id)
-    const products = ProductsModel.get()
-    return res.render("products", { products })
+    console.log(id)
+    return res.redirect('/')
   }
 }

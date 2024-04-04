@@ -1,21 +1,31 @@
 export default class ProductsModel {
   constructor(_id, _name, _desc, _price, _imgUrl){
-    this.id = _id,
-    this.name = _name,
-    this.desc = _desc,
-    this.imgUrl = _imgUrl
+    this.id = _id.toString()
+    this.name = _name.toString()
+    this.desc = _desc.toString()
+    this.price = _price.toString()
+    this.imgUrl = _imgUrl.toString()
   }
+
   static get(){
     return products
   }
+
   static addNewProductInTheList({ name, desc, price, imageUrl }){
     const newProductId = products.length + 1
     const product = new ProductsModel(newProductId, name, desc, price, imageUrl)
     products.push(product)
     return products
   }
+
+  static updateProduct(id, details){
+    const { name, desc, price, imageUrl } = details
+    const index = products.findIndex((product) => product.id === id)
+    products[index] = new ProductsModel(id, name, desc, price, imageUrl)
+  }
+
   static getProductById(id){
-    const index = products.findIndex((product) => product.id === +id)
+    const index = products.findIndex((product) => product.id === id)
     if(index < 0) {
       return { product: products[index], found: false }
     } else {
@@ -24,11 +34,11 @@ export default class ProductsModel {
   }
 
   static deleteProduct(id){
-   const newProducts = products.filter((product) => product.id !== +id)
-   products = newProducts
-  //  console.log(newProducts)
+    const newProducts = products.filter((product) => product.id !== id)
+    products = newProducts
   }
 }
+
 var products = [
   new ProductsModel(
     1,
