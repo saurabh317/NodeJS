@@ -46,9 +46,7 @@ export class ProductsController {
 
   deleteProductFromList(req, res) {
     const { id } = req.params
-    console.log(id)
     ProductsModel.deleteProduct(id)
-    console.log(id)
     return res.redirect('/')
   }
 }

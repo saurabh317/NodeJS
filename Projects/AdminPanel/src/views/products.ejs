@@ -22,7 +22,8 @@
               </td>
               <td>
                 <a href="/update/<%= product.id %>" class="btn btn-warning">update</a>
-                <a href="/delete/<%= product.id %>" class="btn btn-danger">delete</a>
+                <!-- <a href="/delete/<%= product.id %>" class="btn btn-danger">delete</a> -->
+                <button class=" btn btn-danger" onclick="deleteSelectedProduct('<%= product.id %>')">delete</button>
             </td>
           </tr>
         <%})%>

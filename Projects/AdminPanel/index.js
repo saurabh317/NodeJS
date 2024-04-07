@@ -17,10 +17,11 @@ server.use(ejsLayout);
 server.use(express.urlencoded({extended: true}));
 
 server.use(express.static('src/views'));
+server.use(express.static('public'));
 server.get('/', controller.getAllProducts);
 server.get('/new', controller.getAddForm);
 server.get('/update/:id', controller.getUpdateProductView);
-server.get('/delete/:id', controller.deleteProductFromList);
+server.post('/delete/:id', controller.deleteProductFromList);
 
 server.post('/', [addProductValidate, controller.addNewProduct]);
 server.post('/update', controller.updateProductDetails);
