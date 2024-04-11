@@ -17,7 +17,11 @@ export class ProductsController {
   }
 
   addNewProduct(req, res){
-    ProductsModel.addNewProductInTheList(req.body)
+    const { name, desc, price } = req.body
+    const fileName = req.file.filename
+    const imageUrl = 'Images/'+ fileName
+    const details = {name, desc, price, imageUrl}
+    ProductsModel.addNewProductInTheList(details)
     return res.redirect('/')
   }
 

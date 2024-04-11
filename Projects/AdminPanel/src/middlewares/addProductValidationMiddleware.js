@@ -32,7 +32,12 @@ const addProductValidate = async(req, res, next) => {
   const rules = [
     body('name').notEmpty().withMessage('enter a valid name'),
     body('price').isFloat({gt: 0}).withMessage('enter a valid price'),
-    body('imageUrl').isURL().withMessage("enter a valid url")
+    body('imageUrl').custom((value, {req}) => {
+      if(!req.file) {
+        throw new Error("image is required")
+      }
+      return true
+    })//isURL().withMessage("enter a valid url")
   ]
   // step2: execute the rules using run function
   await Promise.all(rules.map((rule) => rule.run(req)))
