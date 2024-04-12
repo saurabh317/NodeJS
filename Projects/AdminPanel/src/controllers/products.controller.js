@@ -44,7 +44,15 @@ export class ProductsController {
 
   updateProductDetails(req, res) {
     const id = req.body.productId;
-    ProductsModel.updateProduct(id , req.body)
+    let details = {}
+    if (req.file) {
+      const fileName = req.file.filename
+      const imageUrl = 'Images/'+ fileName
+      details = Object.assign({imageUrl}, req.body)
+    } else {
+      details = req.body
+    }
+    ProductsModel.updateProduct(id , details)
     return res.redirect('/')
   }
 

@@ -21,8 +21,12 @@ export default class ProductsModel {
 
   static updateProduct(id, details){
     const { name, desc, price, imageUrl } = details
+    let image = imageUrl
     const index = products.findIndex((product) => product.id === id)
-    products[index] = new ProductsModel(id, name, desc, price, imageUrl)
+    if (!image) {
+      image = products[index].imgUrl
+    }
+    products[index] = new ProductsModel(id, name, desc, price, image)
   }
 
   static getProductById(id){
